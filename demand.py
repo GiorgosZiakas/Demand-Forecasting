@@ -17,6 +17,8 @@ df_2024 = pd.read_csv(file_path_2024, sep=';')
 df_combined = pd.concat([df_2023_2022, df_2024])
 # Parse date column with mixed formats
 
+
+
 df_combined['Date'] = pd.to_datetime(df_combined['Date'], format='mixed', dayfirst=True)
 
 # Aggregate daily data
@@ -77,7 +79,7 @@ train_y = train['Weekly Demand'].values
 test_y = test['Weekly Demand'].values
 
 # Step 7: Train Final SARIMA Model with Best Parameters
-best_params = {'p': 1, 'd': 1, 'q': 3, 'P': 1, 'D': 0, 'Q': 0}
+best_params = {'p': 2, 'd': 0, 'q': 2, 'P': 2, 'D': 0, 'Q': 0, 's': 52}
 sarima_model = SARIMAX(
     train_y,
     order=(best_params['p'], best_params['d'], best_params['q']),
@@ -129,5 +131,7 @@ plt.ylabel('Weekly Demand')
 plt.legend()
 plt.grid()
 plt.show()
+
+
 
 
